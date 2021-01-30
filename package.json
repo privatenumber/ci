@@ -1,0 +1,20 @@
+{
+	"name": "ci",
+	"version": "0.0.0-semantic-release",
+	"description": "Run npm ci using the appropriate Node package manager (npm, yarn, pnpm)",
+	"keywords": [
+		"npm",
+		"yarn",
+		"pnpm",
+		"ci"
+	],
+	"license": "MIT",
+	"repository": "privatenumber/ci",
+	"funding": "https://github.com/privatenumber/ci?sponsor=1",
+	"author": {
+		"name": "Hiroki Osame",
+		"email": "hiroki.osame@gmail.com"
+	},
+	"files": [],
+	"bin": "ci.js"
+}
