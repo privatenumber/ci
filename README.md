@@ -12,6 +12,6 @@ npx ci
 
 ## 🙋‍♂️ Why?
 
-For quickly installing dependencies using the expected Node package manager:
+For quickly installing dependencies using the appropriate Node package manager:
 - Installing dependencies in a 3rd-party project
-- CI workflows that are agnostic to project
+- CI workflows that are agnostic to project & package manager
