@@ -1,20 +1,19 @@
 # ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci) [![Monthly downloads](https://badgen.net/npm/dm/ci)](https://npm.im/ci) [![Install size](https://packagephobia.now.sh/badge?p=ci)](https://packagephobia.now.sh/result?p=ci)
 
-Install dependencies from lock using the appropriate Node version manager ([npm](https://www.npmjs.com), [yarn](https://yarnpkg.com), [pnpm](https://pnpm.js.org/)).
+Package-manager agonstic lock-file installation. Supports [npm](https://docs.npmjs.com/cli/v7/commands/npm), [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/).
 
-👉 Run it in your npm project directory:
+Try it out in your npm project. It has zero dependencies and is blazing fast!
 
 ```sh
-npx ci
+$ npx ci
 ```
 
 <sub>If you like this project, please star it & [follow me](https://github.com/privatenumber) to see what other cool projects I'm working on! ❤️</sub>
 
 ## 🙋‍♂️ Why?
 
-So you no longer have to check or remember which projects are using which package manager. Just type in `npx ci` and it will do the work for you!
+npm has a command [`npm ci`](https://docs.npmjs.com/cli/v7/commands/npm-ci) to install dependencies from the _lock file_ with a clean slate. However, this command is different on both [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/) and can be confusing to remember across different projects.
 
-Great for:
-- Installing dependencies in a 3rd-party project that's using a different package manager
-- CI workflows that are agnostic to project & package manager
-- Accidentally typing in `npx ci` instead of `npm ci`. Except now it's even smarter 😄
+You can now run this in any project without worrying about the package manager. It's great for contributing to open-source projects or using it in CI workflows.
+
+Also safe for when you accidentally type `npx ci` instead of `npm ci` 😉 
