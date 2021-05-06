@@ -19,15 +19,19 @@ function compareSemver(semverA, semverB) {
 	);
 }
 
+var spawned;
+
 if (existsSync('package-lock.json')) {
-	spawnSync('npm', ['ci'], opts);
+	spawned = spawnSync('npm', ['ci'], opts);
 } else if (existsSync('yarn.lock')) {
-	spawnSync('npx', ['yarn', 'install', '--immutable'], opts);
+	spawned = spawnSync('npx', ['yarn', 'install', '--immutable'], opts);
 } else if (existsSync('pnpm-lock.yaml')) {
 	// https://github.com/pnpm/pnpm/releases/tag/v6.0.0-rc.1
 	var pnpmVersion = compareSemver(nodeVersion, [12, 17, 0]) >= 0 ? 'pnpm@6' : 'pnpm@5';
-	spawnSync('npx', [pnpmVersion, 'i', '--frozen-lockfile'], opts);
+	spawned = spawnSync('npx', [pnpmVersion, 'i', '--frozen-lockfile'], opts);
 } else {
 	console.error('Error: No lock file (package-lock.json, yarn.lock, pnpm-lock.yaml) found');
 	process.exit(1);
 }
+
+process.exit(spawned.status);
