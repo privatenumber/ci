@@ -1,19 +1,22 @@
-# ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci) [![Monthly downloads](https://badgen.net/npm/dm/ci)](https://npm.im/ci) [![Install size](https://packagephobia.now.sh/badge?p=ci)](https://packagephobia.now.sh/result?p=ci)
+# npx ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci)
 
-Package-manager agonstic lock-file installation. Supports [npm](https://docs.npmjs.com/cli/v7/commands/npm), [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/).
+Package-manager agonstic `npm ci`. Supports [npm](https://docs.npmjs.com/cli/v7/commands/npm), [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/).
 
-Try it out in your npm project. It has zero dependencies and is blazing fast!
-
-```sh
-$ npx ci
-```
+It's tiny, has zero dependencies, and blazing fast!
 
 <sub>If you like this project, please star it & [follow me](https://github.com/privatenumber) to see what other cool projects I'm working on! ❤️</sub>
 
-## 🙋‍♂️ Why?
+## Usage
 
-npm has a command [`npm ci`](https://docs.npmjs.com/cli/v7/commands/npm-ci) to install dependencies from the _lock file_ with a clean slate. However, this command is different on both [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/) and can be confusing to remember across different projects.
+Run in your project in-place of [`npm ci`](https://docs.npmjs.com/cli/v7/commands/npm-ci):
+```sh
+npx ci
+```
 
-You can now run this in any project without worrying about the package manager. It's great for contributing to open-source projects or using it in CI workflows.
+## Why?
 
-Also safe for when you accidentally type `npx ci` instead of `npm ci` 😉 
+npm has a [`npm ci`](https://docs.npmjs.com/cli/v7/commands/npm-ci) command to install dependencies from the _lock file_ with a clean slate. However, this command is different across package managers like [yarn](https://yarnpkg.com/) and [pnpm](https://pnpm.io/), and can be confusing to remember when switching between projects.
+
+`npx ci` is a package-manager agnostic `npm ci`. You can run this in any project without worrying about the whether the project uses npm, yarn, or pnpm. It's great for contributing to new projects or using it in CI workflows.
+
+Also _safer_ for when you accidentally type `npx ci` instead of `npm ci` 😉 
