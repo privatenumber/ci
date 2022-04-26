@@ -41,3 +41,7 @@ This is where `npx ci` comes in:
 	
 	It's actually the _safer_ option too!
 
+
+## Related
+
+- [`npx link`](https://github.com/privatenumber/link) - A safer `npm link`.
