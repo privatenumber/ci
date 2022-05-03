@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    branches: [ master, next, next-major, beta, alpha ]
+    branches: [master, next, next-major, beta, alpha]
 jobs:
   release:
     name: Release
@@ -9,13 +9,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version-file: '.nvmrc'
+
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
