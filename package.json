@@ -15,6 +15,9 @@
 		"name": "Hiroki Osame",
 		"email": "hiroki.osame@gmail.com"
 	},
-	"files": [],
-	"bin": "ci.js"
+	"scripts": {
+		"test": "node tests/get-pnpm-version.spec.js"
+	},
+	"files": ["lib"],
+	"bin": "lib/ci.js"
 }
