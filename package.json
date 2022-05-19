@@ -18,6 +18,9 @@
 	"scripts": {
 		"test": "node tests/get-pnpm-version.spec.js"
 	},
-	"files": ["lib"],
-	"bin": "lib/ci.js"
+	"files": [
+		"lib"
+	],
+	"bin": "lib/ci.js",
+	"main": "lib/index.js"
 }
