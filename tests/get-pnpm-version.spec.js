@@ -1,5 +1,5 @@
-const assert = require('assert');
-const getPnpmVersion = require('../src/get-pnpm-version.js');
+import assert from 'assert';
+import { getPnpmVersion } from '../src/get-pnpm-version.js';
 
 assert(getPnpmVersion([14, 19, 0]) === 'latest');
 
