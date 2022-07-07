@@ -1,6 +1,5 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { createRequire } from 'module';
 import { getPnpmVersion } from './get-pnpm-version.js';
 
 const options = {
@@ -10,7 +9,7 @@ const options = {
 
 let spawned;
 
-const packageJson = existsSync('./package.json') && createRequire(import.meta.url)('./package.json');
+const packageJson = existsSync('./package.json') && require('./package.json');
 
 if (
 	packageJson
