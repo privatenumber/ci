@@ -1,10 +1,12 @@
-const compareSemver = (semverA, semverB) => (
+export type Version = [number, number, number];
+
+const compareSemver = (semverA: Version, semverB: Version) => (
 	semverA[0] - semverB[0]
 	|| semverA[1] - semverB[1]
 	|| semverA[2] - semverB[2]
 );
 
-export function getPnpmVersion(nodeVersion) {
+export function getPnpmVersion(nodeVersion: Version) {
 	// pnpm v7 requires Node v14.19 and up: https://github.com/pnpm/pnpm/blob/v7.0.0/packages/types/package.json#L8
 	if (compareSemver(nodeVersion, [14, 19, 0]) >= 0) {
 		return 'latest';

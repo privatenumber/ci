@@ -1,10 +1,9 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { getPnpmVersion } from './get-pnpm-version.js';
+import { getPnpmVersion, type Version } from './get-pnpm-version';
 
 function getPackageManager() {
 	try {
-		// eslint-disable-next-line node/global-require,import/no-unresolved
 		const { packageManager } = require('./package.json');
 		if (
 			typeof packageManager === 'string'
@@ -15,11 +14,9 @@ function getPackageManager() {
 	} catch {}
 }
 
-const npx = 'npx';
-
 export function ci() {
 	const options = {
-		stdio: 'inherit',
+		stdio: 'inherit' as const,
 		shell: true,
 	};
 
@@ -28,7 +25,7 @@ export function ci() {
 		const [packageManagerName] = packageManager.split('@');
 
 		if (packageManagerName === 'npm') {
-			return spawnSync(npx, [packageManager, 'ci'], options);
+			return spawnSync('npx', [packageManager, 'ci'], options);
 		}
 
 		if (packageManagerName === 'yarn') {
@@ -38,12 +35,12 @@ export function ci() {
 			 * Yarn projects actually check in the yarn binary at .yarn/releases
 			 * https://yarnpkg.com/getting-started/install
 			*/
-			return spawnSync(npx, ['yarn', '--immutable'], options);
+			return spawnSync('npx', ['yarn', '--immutable'], options);
 		}
 
 		if (packageManagerName === 'pnpm') {
 			return spawnSync(
-				npx,
+				'npx',
 				[packageManager, 'i', '--frozen-lockfile'],
 				options,
 			);
@@ -57,18 +54,14 @@ export function ci() {
 	}
 
 	if (existsSync('yarn.lock')) {
-		return spawnSync(npx, ['yarn', '--immutable'], options);
+		return spawnSync('npx', ['yarn', '--immutable'], options);
 	}
 
 	if (existsSync('pnpm-lock.yaml')) {
-		const nodeVersion = process.version
-			.slice(1)
-			.split('.')
-			.map(v => Number.parseInt(v, 10));
-
+		const nodeVersion = process.versions.node.split('.').map(Number) as Version;
 		const pnpmVersion = getPnpmVersion(nodeVersion);
 		return spawnSync(
-			npx,
+			'npx',
 			[`pnpm@${pnpmVersion}`, 'i', '--frozen-lockfile'],
 			options,
 		);

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { getPnpmVersion } from '../src/get-pnpm-version.js';
+import { getPnpmVersion } from '../src/get-pnpm-version';
 
 assert(getPnpmVersion([14, 19, 0]) === 'latest');
 
