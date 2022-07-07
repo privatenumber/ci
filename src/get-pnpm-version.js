@@ -1,12 +1,10 @@
-function compareSemver(semverA, semverB) {
-	return (
-		semverA[0] - semverB[0]
-		|| semverA[1] - semverB[1]
-		|| semverA[2] - semverB[2]
-	);
-}
+const compareSemver = (semverA, semverB) => (
+	semverA[0] - semverB[0]
+	|| semverA[1] - semverB[1]
+	|| semverA[2] - semverB[2]
+);
 
-function getPnpmVersion(nodeVersion) {
+export function getPnpmVersion(nodeVersion) {
 	// pnpm v7 requires Node v14.19 and up: https://github.com/pnpm/pnpm/blob/v7.0.0/packages/types/package.json#L8
 	if (compareSemver(nodeVersion, [14, 19, 0]) >= 0) {
 		return 'latest';
@@ -19,5 +17,3 @@ function getPnpmVersion(nodeVersion) {
 
 	return '5';
 }
-
-module.exports = getPnpmVersion;

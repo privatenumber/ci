@@ -15,5 +15,8 @@ node_modules
 .env
 .env.test
 
+# Distribution
+dist
+
 # Cache
 .eslintcache

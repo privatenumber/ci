@@ -16,6 +16,12 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: Test
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
