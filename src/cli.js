@@ -2,6 +2,19 @@ import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
 import { getPnpmVersion } from './get-pnpm-version.js';
 
+function getPackageManager() {
+	try {
+		// eslint-disable-next-line node/global-require,import/no-unresolved
+		const { packageManager } = require('./package.json');
+		if (
+			typeof packageManager === 'string'
+			&& packageManager.includes('@')
+		) {
+			return packageManager;
+		}
+	} catch {}
+}
+
 const options = {
 	stdio: 'inherit',
 	shell: true,
@@ -9,35 +22,22 @@ const options = {
 
 let spawned;
 
-const packageJson = existsSync('./package.json') && require('./package.json');
+const packageManager = getPackageManager();
+if (packageManager) {
+	const [packageManagerName] = packageManager.split('@');
 
-if (
-	packageJson
-	&& 'packageManager' in packageJson
-) {
-	const { packageManager } = packageJson;
-
-	if (typeof packageManager !== 'string') {
-		console.error(`Error: Invalid \`packageManager\` field setting ${packageManager}`);
-		process.exit(1);
-	}
-
-	const parts = packageManager.split('@');
-
-	if (parts.length !== 2) {
-		console.error(`Error: Invalid \`packageManager\` field setting${packageManager}`);
-		process.exit(1);
-	}
-
-	const pm = parts[0];
-
-	switch (pm) {
+	switch (packageManagerName) {
 		case 'npm': {
 			spawned = spawnSync('npx', [packageManager, 'ci'], options);
 			break;
 		}
 		case 'yarn': {
-			// `yarn@3` is not available on npm
+			/**
+			 * Using the latest yarn will detect the appropriate version to use via .yarnrc.yml
+			 *
+			 * Yarn projects actually check in the yarn binary at .yarn/releases
+			 * https://yarnpkg.com/getting-started/install
+			*/
 			spawned = spawnSync('npx', ['yarn', '--immutable'], options);
 			break;
 		}
@@ -50,7 +50,7 @@ if (
 			break;
 		}
 		default: {
-			console.error(`Error: unknown package manager ${pm}`);
+			console.error(`Error: unknown packageManager ${packageManagerName}`);
 			process.exit(1);
 		}
 	}
