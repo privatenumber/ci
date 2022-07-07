@@ -15,6 +15,8 @@ function getPackageManager() {
 	} catch {}
 }
 
+const npx = 'npx';
+
 export function ci() {
 	const options = {
 		stdio: 'inherit',
@@ -26,7 +28,7 @@ export function ci() {
 		const [packageManagerName] = packageManager.split('@');
 
 		if (packageManagerName === 'npm') {
-			return spawnSync('npx', [packageManager, 'ci'], options);
+			return spawnSync(npx, [packageManager, 'ci'], options);
 		}
 
 		if (packageManagerName === 'yarn') {
@@ -36,12 +38,12 @@ export function ci() {
 			 * Yarn projects actually check in the yarn binary at .yarn/releases
 			 * https://yarnpkg.com/getting-started/install
 			*/
-			return spawnSync('npx', ['yarn', '--immutable'], options);
+			return spawnSync(npx, ['yarn', '--immutable'], options);
 		}
 
 		if (packageManagerName === 'pnpm') {
 			return spawnSync(
-				'npx',
+				npx,
 				[packageManager, 'i', '--frozen-lockfile'],
 				options,
 			);
@@ -55,7 +57,7 @@ export function ci() {
 	}
 
 	if (existsSync('yarn.lock')) {
-		return spawnSync('npx', ['yarn', '--immutable'], options);
+		return spawnSync(npx, ['yarn', '--immutable'], options);
 	}
 
 	if (existsSync('pnpm-lock.yaml')) {
@@ -66,12 +68,11 @@ export function ci() {
 
 		const pnpmVersion = getPnpmVersion(nodeVersion);
 		return spawnSync(
-			'npx',
+			npx,
 			[`pnpm@${pnpmVersion}`, 'i', '--frozen-lockfile'],
 			options,
 		);
 	}
 
-	console.error('Error: No lock file (package-lock.json, yarn.lock, pnpm-lock.yaml) found');
-	process.exit(1);
+	throw new Error('Error: No lock file (package-lock.json, yarn.lock, pnpm-lock.yaml) found');
 }

@@ -1,3 +1,8 @@
 import { ci } from './ci.js';
 
-process.exit(ci().status);
+try {
+	process.exit(ci().status);
+} catch (error) {
+	console.error(error.message);
+	process.exit(1);
+}
