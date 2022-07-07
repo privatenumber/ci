@@ -16,8 +16,20 @@
 		"email": "hiroki.osame@gmail.com"
 	},
 	"scripts": {
-		"test": "node tests/get-pnpm-version.spec.js"
+		"test": "node tests/get-pnpm-version.spec.js",
+		"lint": "eslint --cache .",
+		"prepack": "clean-pkg-json"
 	},
-	"files": ["lib"],
-	"bin": "lib/ci.js"
+	"files": [
+		"lib"
+	],
+	"bin": "lib/ci.js",
+	"devDependencies": {
+		"@pvtnbr/eslint-config": "^0.26.2",
+		"clean-pkg-json": "^1.0.0",
+		"eslint": "^8.19.0"
+	},
+	"eslintConfig": {
+		"extends": "@pvtnbr"
+	}
 }
