@@ -1,0 +1,13 @@
+lockfileVersion: 5.4
+
+specifiers:
+  test-package: ^0.0.1
+
+dependencies:
+  test-package: 0.0.1
+
+packages:
+
+  /test-package/0.0.1:
+    resolution: {integrity: sha512-na4CAlsOJ8mkeONsNuQzSXnTzZsQrP6xsFkWD1xajgq7eDkQ38rl8SrM94125QHs9t0S38SJZ8RQaMmuecCxHA==}
+    dev: false

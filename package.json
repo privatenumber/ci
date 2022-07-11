@@ -20,7 +20,8 @@
 	],
 	"bin": "dist/cli.js",
 	"scripts": {
-		"test": "tsx tests/get-pnpm-version.spec.ts",
+		"test": "tsx tests",
+		"dev": "tsx watch tests",
 		"lint": "eslint --cache .",
 		"build": "pkgroll --target node12.0.0 --minify",
 		"prepack": "clean-pkg-json"
@@ -30,6 +31,9 @@
 		"@types/node": "^18.0.3",
 		"clean-pkg-json": "^1.0.0",
 		"eslint": "^8.19.0",
+		"execa": "^6.1.0",
+		"fs-fixture": "^1.0.0",
+		"manten": "^0.2.1",
 		"pkgroll": "^1.3.1",
 		"tsx": "^3.7.1",
 		"typescript": "^4.7.4"
@@ -38,7 +42,9 @@
 		"extends": "@pvtnbr",
 		"overrides": [
 			{
-				"files": ["ci.ts"],
+				"files": [
+					"ci.ts"
+				],
 				"rules": {
 					"node/global-require": "off",
 					"import/no-unresolved": "off",
