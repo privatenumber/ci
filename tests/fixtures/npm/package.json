@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "test-package": "^0.0.1"
-  }
+	"dependencies": {
+		"test-package": "^0.0.1"
+	}
 }

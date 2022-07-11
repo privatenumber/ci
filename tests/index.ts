@@ -4,7 +4,7 @@ import { createFixture } from 'fs-fixture';
 import { execa } from 'execa';
 
 const ciBinaryPath = path.resolve('dist/cli.js');
-const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd, env: {CI: 1} });
+const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd });
 
 describe('ci', ({ describe }) => {
 	describe('lock file', ({ test }) => {
