@@ -4,7 +4,7 @@ import { createFixture } from 'fs-fixture';
 import { execa } from 'execa';
 
 const ciBinaryPath = path.resolve('dist/cli.js');
-const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd });
+const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd, env: {CI: 1} });
 
 describe('ci', ({ describe }) => {
 	describe('lock file', ({ test }) => {
@@ -30,7 +30,7 @@ describe('ci', ({ describe }) => {
 			const fixture = await createFixture('tests/fixtures/yarn');
 
 			const { stdout } = await ci(fixture.path);
-			expect(stdout).toMatch('➤ YN0000: Done in');
+			expect(stdout).toMatch('YN0000: Done in');
 
 			await fixture.rm();
 		});
