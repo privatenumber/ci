@@ -42,6 +42,14 @@ This is where `npx ci` comes in:
 	It's actually the _safer_ option too!
 
 
+## FAQ
+
+### Can it detect the package manager without a lock file?
+
+It's possible to detect the package manager using other signals (eg [`package.json#packageManager`](https://nodejs.org/api/packages.html#packagemanager), `.yarnrc.yml`).
+
+However, since `npx ci` is strictly an alternative to `npm ci`, a lock file is necessary to do a _clean_/_immutable_/_frozen_ install.
+
 ## Related
 
 - [`npx link`](https://github.com/privatenumber/link) - A safer `npm link`.
