@@ -20,10 +20,11 @@
 	],
 	"bin": "dist/cli.js",
 	"scripts": {
-		"test": "tsx tests",
-		"dev": "tsx watch tests",
 		"lint": "eslint --cache .",
 		"build": "pkgroll --target node12.0.0 --minify",
+		"pretest": "npm run build",
+		"test": "tsx tests",
+		"dev": "tsx watch tests",
 		"prepack": "clean-pkg-json"
 	},
 	"devDependencies": {
