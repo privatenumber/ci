@@ -22,10 +22,9 @@
 	"scripts": {
 		"lint": "eslint --cache .",
 		"build": "pkgroll --target node12.0.0 --minify",
-		"pretest": "npm run build",
 		"test": "tsx tests",
 		"dev": "tsx watch tests",
-		"prepack": "clean-pkg-json"
+		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"devDependencies": {
 		"@pvtnbr/eslint-config": "^0.35.0",

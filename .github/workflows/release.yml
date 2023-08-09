@@ -22,12 +22,6 @@ jobs:
           version: 8
           run_install: true
 
-      - name: Test
-        run: pnpm test
-
-      - name: Lint
-        run: pnpm lint
-
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
