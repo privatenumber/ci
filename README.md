@@ -1,4 +1,4 @@
-# npx ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci)
+# npx ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci) [![npm downloads](https://badgen.net/npm/dm/esbuild-loader)](https://npm.im/esbuild-loader)
 
 A safer [`npm ci`](https://docs.npmjs.com/cli/v8/commands/npm-ci).
 
