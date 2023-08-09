@@ -1,9 +1,10 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
+import { detectPnpmVersionFromPackageManager } from './utils/detect-pnpm-version-from-package-manager.js';
 import { guessPnpmVersion } from './utils/guess-pnpm-version.js';
 import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.js';
-import type { NodeVersion } from './types.js';
 import { parseVersionString } from './utils/parse-version-string.js';
+import type { NodeVersion } from './types.js';
 
 export const ci = async () => {
 	const options = {
@@ -26,10 +27,14 @@ export const ci = async () => {
 	}
 
 	if (existsSync('pnpm-lock.yaml')) {
-		const pnpmVersion = guessPnpmVersion(
-			parseVersionString<NodeVersion>(process.versions.node),
-			await getPnpmLockVersion(),
+		const pnpmVersion = (
+			detectPnpmVersionFromPackageManager()
+			|| guessPnpmVersion(
+				parseVersionString<NodeVersion>(process.versions.node),
+				await getPnpmLockVersion(),
+			)
 		);
+
 		return spawnSync(
 			'npx',
 			[`pnpm${pnpmVersion}`, 'i', '--frozen-lockfile'],
