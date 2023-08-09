@@ -25,6 +25,7 @@ jobs:
         with:
           version: 8
           run_install: true
+          recursive: false
 
       - name: Test
         run: pnpm test
