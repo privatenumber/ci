@@ -60,5 +60,7 @@ export const getPnpmVersion = (
 	});
 
 	const foundMatch = compatibleVersion;
+
+	// Falls back to the currently installed version
 	return foundMatch ? `@${foundMatch[0]}` : '';
 };
