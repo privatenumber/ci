@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { getPnpmVersion, type LockVersion, type NodeVersion } from './get-pnpm-version.js';
 import firstline from 'firstline';
+import { getPnpmVersion, type LockVersion, type NodeVersion } from './get-pnpm-version.js';
 
 const parseVersionString = <Version>(versionString: string) => versionString.split('.').map(Number) as Version;
 
