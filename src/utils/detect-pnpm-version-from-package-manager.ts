@@ -6,7 +6,7 @@ import { readFileSync } from 'fs';
  *
  * The source of truth is still the lock file type because `npm ci` only
  * installs from the lock file.
- * 
+ *
  * packageManager detection was previously reverted:
  * https://github.com/privatenumber/ci/pull/12
  *
