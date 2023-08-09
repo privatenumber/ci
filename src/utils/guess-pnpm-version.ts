@@ -1,20 +1,6 @@
-export type LockVersion = [number, number];
-export type NodeVersion = [number, number, number];
+import type { LockVersion, NodeVersion, PnpmVersion } from '../types.js';
+import { compareSemver } from './compare-semver.js';
 
-const compareSemver = <Version extends number[]>(
-	semverA: Version,
-	semverB: Version,
-) => (
-		semverA[0] - semverB[0]
-	|| semverA[1] - semverB[1]
-	|| semverA[2] - semverB[2]
-	|| 0
-	);
-
-type PnpmVersion = {
-	node: NodeVersion;
-	lock: LockVersion;
-};
 const pnpmVersions: [string, PnpmVersion][] = [
 	['8', {
 		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/types/package.json#L8
@@ -46,7 +32,7 @@ const pnpmVersions: [string, PnpmVersion][] = [
 	}],
 ];
 
-export const getPnpmVersion = (
+export const guessPnpmVersion = (
 	nodeVersion: NodeVersion,
 	lockfileVersion?: LockVersion,
 ) => {

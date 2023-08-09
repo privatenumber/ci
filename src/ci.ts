@@ -1,17 +1,9 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import firstline from 'firstline';
-import { getPnpmVersion, type LockVersion, type NodeVersion } from './get-pnpm-version.js';
-
-const parseVersionString = <Version>(versionString: string) => versionString.split('.').map(Number) as Version;
-
-const getPnpmLockVersion = async () => {
-	const lockFirstLine = await firstline('pnpm-lock.yaml');
-	const lockFileVersion = lockFirstLine.match(/\d+\.\d+/);
-	if (lockFileVersion) {
-		return parseVersionString<LockVersion>(lockFileVersion[0]);
-	}
-};
+import { guessPnpmVersion } from './utils/guess-pnpm-version.js';
+import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.js';
+import type { NodeVersion } from './types.js';
+import { parseVersionString } from './utils/parse-version-string.js';
 
 export const ci = async () => {
 	const options = {
@@ -34,7 +26,7 @@ export const ci = async () => {
 	}
 
 	if (existsSync('pnpm-lock.yaml')) {
-		const pnpmVersion = getPnpmVersion(
+		const pnpmVersion = guessPnpmVersion(
 			parseVersionString<NodeVersion>(process.versions.node),
 			await getPnpmLockVersion(),
 		);
