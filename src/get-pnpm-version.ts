@@ -1,21 +1,64 @@
-export type Version = [number, number, number];
+export type LockVersion = [number, number];
+export type NodeVersion = [number, number, number];
 
-const compareSemver = (semverA: Version, semverB: Version) => (
-	semverA[0] - semverB[0]
+const compareSemver = <Version extends number[]>(
+	semverA: Version,
+	semverB: Version,
+) => (
+		semverA[0] - semverB[0]
 	|| semverA[1] - semverB[1]
 	|| semverA[2] - semverB[2]
-);
+	|| 0
+	);
 
-export function getPnpmVersion(nodeVersion: Version) {
-	// pnpm v7 requires Node v14.19 and up: https://github.com/pnpm/pnpm/blob/v7.0.0/packages/types/package.json#L8
-	if (compareSemver(nodeVersion, [14, 19, 0]) >= 0) {
-		return 'latest';
-	}
+type PnpmVersion = {
+	node: NodeVersion;
+	lock: LockVersion;
+};
+const pnpmVersions: [string, PnpmVersion][] = [
+	['8', {
+		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/types/package.json#L8
+		node: [16, 14, 0],
 
-	// pnpm v6 requires Node v12.17 and up: https://github.com/pnpm/pnpm/releases/tag/v6.0.0
-	if (compareSemver(nodeVersion, [12, 17, 0]) >= 0) {
-		return '6';
-	}
+		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/constants/src/index.ts#L2
+		lock: [6, 0],
+	}],
+	['7', {
+		// https://github.com/pnpm/pnpm/blob/v7.0.0/packages/types/package.json#L8
+		node: [14, 19, 0],
 
-	return '5';
-}
+		// https://github.com/pnpm/pnpm/blob/v7.0.0/packages/constants/src/index.ts#L2
+		lock: [5, 4],
+	}],
+	['6', {
+		// https://github.com/pnpm/pnpm/blob/v6.0.0/packages/types/package.json#L8
+		node: [12, 17, 0],
+
+		// https://github.com/pnpm/pnpm/blob/v6.0.0/packages/constants/src/index.ts#L2
+		lock: [5, 3],
+	}],
+	['5', {
+		// https://github.com/pnpm/pnpm/blob/v5.0.0/packages/types/package.json#L8
+		node: [10, 13, 0],
+
+		// https://github.com/pnpm/pnpm/blob/v5.0.0/packages/constants/src/index.ts#L2
+		lock: [5, 1],
+	}],
+];
+
+export const getPnpmVersion = (
+	nodeVersion: NodeVersion,
+	lockfileVersion?: LockVersion,
+) => {
+	const compatibleVersion = pnpmVersions.find(([_version, { node: nodeMinimum, lock }]) => {
+		const isCompatibleNodeVersion = compareSemver(nodeVersion, nodeMinimum) >= 0;
+		const isCompatibleLockVersion = (
+			!lockfileVersion
+			|| compareSemver(lockfileVersion, lock) === 0
+		);
+		return isCompatibleNodeVersion && isCompatibleLockVersion;
+	});
+
+	const foundMatch = compatibleVersion;
+	return foundMatch ? `@${foundMatch[0]}` : '';
+};

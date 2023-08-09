@@ -6,7 +6,7 @@ import { execa } from 'execa';
 const ciBinaryPath = path.resolve('dist/cli.js');
 const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd });
 
-describe('ci', ({ describe }) => {
+describe('ci', ({ describe, runTestSuite }) => {
 	describe('lock file', ({ test }) => {
 		test('npm', async () => {
 			const fixture = await createFixture('tests/fixtures/npm');
@@ -21,7 +21,9 @@ describe('ci', ({ describe }) => {
 			const fixture = await createFixture('tests/fixtures/pnpm');
 
 			const { stdout } = await ci(fixture.path);
-			expect(stdout).toMatch('Lockfile is up-to-date, resolution step is skipped');
+
+			// pnpm changed "Lockfile is up-to-date" to "Lockfile is up to date"
+			expect(stdout).toMatch('Lockfile is up');
 
 			await fixture.rm();
 		});
@@ -35,4 +37,6 @@ describe('ci', ({ describe }) => {
 			await fixture.rm();
 		});
 	});
+
+	runTestSuite(import('./get-pnpm-version.spec.js'));
 });

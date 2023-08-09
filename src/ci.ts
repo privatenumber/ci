@@ -1,8 +1,19 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { getPnpmVersion, type Version } from './get-pnpm-version';
+import firstline from 'firstline';
+import { getPnpmVersion, type LockVersion, type NodeVersion } from './get-pnpm-version.js';
 
-export function ci() {
+const parseVersionString = <Version>(versionString: string) => versionString.split('.').map(Number) as Version;
+
+const getPnpmLockVersion = async () => {
+	const lockFirstLine = await firstline('pnpm-lock.yaml');
+	const lockFileVersion = lockFirstLine.match(/\d+\.\d+/);
+	if (lockFileVersion) {
+		return parseVersionString<LockVersion>(lockFileVersion[0]);
+	}
+};
+
+export const ci = async () => {
 	const options = {
 		stdio: 'inherit' as const,
 		shell: true,
@@ -23,14 +34,16 @@ export function ci() {
 	}
 
 	if (existsSync('pnpm-lock.yaml')) {
-		const nodeVersion = process.versions.node.split('.').map(Number) as Version;
-		const pnpmVersion = getPnpmVersion(nodeVersion);
+		const pnpmVersion = getPnpmVersion(
+			parseVersionString<NodeVersion>(process.versions.node),
+			await getPnpmLockVersion(),
+		);
 		return spawnSync(
 			'npx',
-			[`pnpm@${pnpmVersion}`, 'i', '--frozen-lockfile'],
+			[`pnpm${pnpmVersion}`, 'i', '--frozen-lockfile'],
 			options,
 		);
 	}
 
 	throw new Error('Error: No lock file (package-lock.json, yarn.lock, pnpm-lock.yaml) found');
-}
+};

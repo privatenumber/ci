@@ -29,10 +29,12 @@
 	},
 	"devDependencies": {
 		"@pvtnbr/eslint-config": "^0.35.0",
+		"@types/firstline": "^2.0.2",
 		"@types/node": "^20.4.9",
 		"clean-pkg-json": "^1.2.0",
 		"eslint": "^8.46.0",
 		"execa": "^7.2.0",
+		"firstline": "^2.0.2",
 		"fs-fixture": "^1.2.0",
 		"manten": "^1.0.0",
 		"pkgroll": "^1.11.0",

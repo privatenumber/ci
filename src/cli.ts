@@ -1,8 +1,11 @@
-import { ci } from './ci';
+import { ci } from './ci.js';
 
-try {
-	process.exit(ci().status!);
-} catch (error) {
-	console.error((error as any).message);
-	process.exit(1);
-}
+(async () => {
+	try {
+		const { status } = await ci();
+		process.exit(status!);
+	} catch (error) {
+		console.error((error as Error).message);
+		process.exitCode = 1;
+	}
+})();
