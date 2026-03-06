@@ -6,11 +6,19 @@ type PnpmVersionConstraint = {
 };
 
 const pnpmVersions: [string, PnpmVersionConstraint][] = [
+	// pnpm 9 shares the same constraints — reachable only via packageManager field
+	['10', {
+		// https://github.com/pnpm/pnpm/blob/v10.0.0/pnpm/package.json
+		node: [18, 12, 0],
+
+		// https://github.com/pnpm/pnpm/blob/v10.0.0/packages/constants/src/index.ts
+		lock: [9, 0],
+	}],
 	['8', {
-		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/types/package.json#L8
+		// https://github.com/pnpm/pnpm/blob/v8.0.0/pnpm/package.json
 		node: [16, 14, 0],
 
-		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/constants/src/index.ts#L2
+		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/constants/src/index.ts
 		lock: [6, 0],
 	}],
 	['7', {
