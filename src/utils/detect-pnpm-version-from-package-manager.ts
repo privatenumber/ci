@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 
 /**
  * This is specific to pnpm because it's the only package manager with

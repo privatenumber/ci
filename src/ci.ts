@@ -1,5 +1,5 @@
-import { existsSync } from 'fs';
-import { spawnSync } from 'child_process';
+import { existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { detectPnpmVersionFromPackageManager } from './utils/detect-pnpm-version-from-package-manager.ts';
 import { guessPnpmVersion } from './utils/guess-pnpm-version.ts';
 import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.ts';

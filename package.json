@@ -20,42 +20,26 @@
 	],
 	"type": "module",
 	"bin": "dist/cli.js",
+	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017",
 	"scripts": {
 		"type-check": "tsc",
-		"lint": "eslint --cache .",
+		"lint": "lintroll --cache --node --ignore-pattern tests/fixtures .",
 		"build": "pkgroll --target node12.0.0 --minify",
 		"test": "tsx tests",
 		"dev": "tsx watch tests",
 		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"devDependencies": {
-		"@pvtnbr/eslint-config": "^0.35.0",
 		"@types/firstline": "^2.0.2",
 		"@types/node": "^20.4.9",
 		"clean-pkg-json": "^1.2.0",
-		"eslint": "^8.46.0",
 		"execa": "^7.2.0",
 		"firstline": "^2.0.2",
 		"fs-fixture": "^1.2.0",
+		"lintroll": "^1.30.0",
 		"manten": "^2.0.0",
 		"pkgroll": "^1.11.0",
 		"tsx": "^3.12.7",
 		"typescript": "^5.9.3"
-	},
-	"eslintConfig": {
-		"extends": "@pvtnbr",
-		"overrides": [
-			{
-				"files": [
-					"ci.ts"
-				],
-				"rules": {
-					"node/global-require": "off",
-					"import/no-unresolved": "off",
-					"@typescript-eslint/no-var-requires": "off"
-				}
-			}
-		]
-	},
-	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
+	}
 }

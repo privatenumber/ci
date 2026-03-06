@@ -1,5 +1,7 @@
-import path from 'path';
-import { describe, test, expect, onTestFinish } from 'manten';
+import path from 'node:path';
+import {
+	describe, test, expect, onTestFinish,
+} from 'manten';
 import { createFixture } from 'fs-fixture';
 import { execa } from 'execa';
 
