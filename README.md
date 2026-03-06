@@ -1,4 +1,4 @@
-# npx ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci) [![npm downloads](https://badgen.net/npm/dm/esbuild-loader)](https://npm.im/esbuild-loader)
+# npx ci [![Latest version](https://badgen.net/npm/v/ci)](https://npm.im/ci) [![npm downloads](https://badgen.net/npm/dm/ci)](https://npm.im/ci)
 
 A safer [`npm ci`](https://docs.npmjs.com/cli/v8/commands/npm-ci).
 
@@ -40,8 +40,8 @@ This is where `npx ci` comes in:
 
 - **Can use in any environment with a single command**
 
-	If yarn or pnpm isn't already installed, `npx ci` installs it for you.
-	
+	If yarn or pnpm isn't already installed, `npx ci` installs the appropriate version for you. When [`packageManager`](https://nodejs.org/api/packages.html#packagemanager) is set, it uses the locally available pnpm directly (compatible with corepack).
+
 	It's great for using it in CI/CD workflows!
 	
 
@@ -67,9 +67,9 @@ This is where `npx ci` comes in:
 
 ### Can it detect the package manager without a lock file?
 
-It's possible to detect the package manager using other signals (eg [`package.json#packageManager`](https://nodejs.org/api/packages.html#packagemanager), `.yarnrc.yml`).
+A lock file is required — `npx ci` is strictly an alternative to `npm ci`, so a _clean_/_immutable_/_frozen_ install needs a lock file.
 
-However, since `npx ci` is strictly an alternative to `npm ci`, a lock file is necessary to do a _clean_/_immutable_/_frozen_ install.
+The lock file determines which package manager to use. If [`packageManager`](https://nodejs.org/api/packages.html#packagemanager) is set in `package.json`, pnpm is run directly (works with corepack). Otherwise, the pnpm version is guessed from the Node.js version and lockfile version.
 
 ## Related
 
