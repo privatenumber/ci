@@ -1,46 +1,35 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { detectPnpmVersionFromPackageManager } from './utils/detect-pnpm-version-from-package-manager.ts';
-import { guessPnpmVersion } from './utils/guess-pnpm-version.ts';
-import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.ts';
-import { parseVersionString } from './utils/parse-version-string.ts';
-import type { NodeVersion } from './types.ts';
+import { resolvePackageManager } from './resolve-package-manager.ts';
 
-export const ci = async () => {
-	const options = {
-		stdio: 'inherit' as const,
+const lockFileNames = ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml'];
+
+const readFirstLine = (filePath: string) => {
+	const file = readFileSync(filePath, 'utf8');
+	return file.slice(0, file.indexOf('\n'));
+};
+
+export const ci = () => {
+	const lockFiles = lockFileNames.filter(existsSync);
+
+	let packageManager: string | undefined;
+	try {
+		({ packageManager } = JSON.parse(readFileSync('package.json', 'utf8')));
+	} catch {}
+
+	const lockFirstLine = lockFiles.includes('pnpm-lock.yaml')
+		? readFirstLine('pnpm-lock.yaml')
+		: undefined;
+
+	const { command, args } = resolvePackageManager({
+		lockFiles,
+		nodeVersion: process.versions.node.split('.').map(Number),
+		packageManager,
+		lockFirstLine,
+	});
+
+	return spawnSync(command, args, {
+		stdio: 'inherit',
 		shell: true,
-	};
-
-	if (existsSync('package-lock.json')) {
-		return spawnSync('npm', ['ci'], options);
-	}
-
-	if (existsSync('yarn.lock')) {
-		/**
-		 * Using the latest yarn will detect the appropriate version to use via .yarnrc.yml
-		 *
-		 * Yarn projects actually check in the yarn binary at .yarn/releases
-		 * https://yarnpkg.com/getting-started/install
-		*/
-		return spawnSync('npx', ['yarn', '--immutable'], options);
-	}
-
-	if (existsSync('pnpm-lock.yaml')) {
-		const pnpmVersion = (
-			detectPnpmVersionFromPackageManager()
-			|| guessPnpmVersion(
-				parseVersionString<NodeVersion>(process.versions.node),
-				await getPnpmLockVersion(),
-			)
-		);
-
-		return spawnSync(
-			'npx',
-			[`pnpm${pnpmVersion}`, 'i', '--frozen-lockfile'],
-			options,
-		);
-	}
-
-	throw new Error('Error: No lock file (package-lock.json, yarn.lock, pnpm-lock.yaml) found');
+	});
 };

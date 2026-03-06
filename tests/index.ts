@@ -50,4 +50,9 @@ describe('ci', () => {
 	});
 
 	import('./get-pnpm-version.spec.ts');
+	import('./compare-semver.spec.ts');
+	import('./parse-version-string.spec.ts');
+	import('./detect-pnpm-version.spec.ts');
+	import('./parse-lock-version.spec.ts');
+	import('./resolve-package-manager.spec.ts');
 });

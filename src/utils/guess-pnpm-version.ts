@@ -1,7 +1,11 @@
-import type { LockVersion, NodeVersion, PnpmVersion } from '../types.ts';
 import { compareSemver } from './compare-semver.ts';
 
-const pnpmVersions: [string, PnpmVersion][] = [
+type PnpmVersionConstraint = {
+	node: number[];
+	lock: number[];
+};
+
+const pnpmVersions: [string, PnpmVersionConstraint][] = [
 	['8', {
 		// https://github.com/pnpm/pnpm/blob/v8.0.0/packages/types/package.json#L8
 		node: [16, 14, 0],
@@ -33,10 +37,10 @@ const pnpmVersions: [string, PnpmVersion][] = [
 ];
 
 export const guessPnpmVersion = (
-	nodeVersion: NodeVersion,
-	lockfileVersion?: LockVersion,
+	nodeVersion: number[],
+	lockfileVersion?: number[],
 ) => {
-	const compatibleVersion = pnpmVersions.find(([_version, { node: nodeMinimum, lock }]) => {
+	const match = pnpmVersions.find(([, { node: nodeMinimum, lock }]) => {
 		const isCompatibleNodeVersion = compareSemver(nodeVersion, nodeMinimum) >= 0;
 		const isCompatibleLockVersion = (
 			!lockfileVersion
@@ -45,8 +49,5 @@ export const guessPnpmVersion = (
 		return isCompatibleNodeVersion && isCompatibleLockVersion;
 	});
 
-	const foundMatch = compatibleVersion;
-
-	// Falls back to the currently installed version
-	return foundMatch ? `@${foundMatch[0]}` : '';
+	return match ? `@${match[0]}` : '';
 };

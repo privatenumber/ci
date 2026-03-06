@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      '@types/firstline':
-        specifier: ^2.0.2
-        version: 2.0.4
       '@types/node':
         specifier: ^20.4.9
         version: 20.19.37
@@ -20,9 +17,6 @@ importers:
       execa:
         specifier: ^7.2.0
         version: 7.2.0
-      firstline:
-        specifier: ^2.0.2
-        version: 2.0.2
       fs-fixture:
         specifier: ^1.2.0
         version: 1.2.0
@@ -617,9 +611,6 @@ packages:
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
-
-  '@types/firstline@2.0.4':
-    resolution: {integrity: sha512-EYoMzk783ncj3soLGADXD/rklDMw1PAO5Hc3lRZa5G21vkfacwkdTlIdhTJ39omqDLezTSmxjDG1psd4A/mUHg==}
 
   '@types/istanbul-lib-coverage@2.0.6':
     resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}
@@ -1410,10 +1401,6 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
-
-  firstline@2.0.2:
-    resolution: {integrity: sha512-8KcmfI0jgSECnzdhucm0i7vrwef3BWwgjimW2YkRC5eSFwjb5DibVoA0YvgkYwwxuJi9c+7M7X3b3lX8o9B6wg==}
-    engines: {node: '>=6.4.0'}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -3072,10 +3059,6 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
-  '@types/firstline@2.0.4':
-    dependencies:
-      '@types/node': 20.19.37
-
   '@types/istanbul-lib-coverage@2.0.6': {}
 
   '@types/istanbul-lib-report@3.0.3':
@@ -4062,8 +4045,6 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
-
-  firstline@2.0.2: {}
 
   flat-cache@4.0.1:
     dependencies:

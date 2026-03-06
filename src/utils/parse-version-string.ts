@@ -1,3 +1,3 @@
-export const parseVersionString = <Version>(
+export const parseVersionString = (
 	versionString: string,
-) => versionString.split('.').map(Number) as Version;
+) => versionString.split('.').map(Number);
