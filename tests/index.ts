@@ -3,10 +3,10 @@ import {
 	describe, test, expect, onTestFinish,
 } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { execa } from 'execa';
+import spawn from 'nano-spawn';
 
 const ciBinaryPath = path.resolve('dist/cli.js');
-const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd });
+const ci = (cwd: string) => spawn(process.execPath, [ciBinaryPath], { cwd });
 
 describe('ci', () => {
 	describe('lock file', () => {
