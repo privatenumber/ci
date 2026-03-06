@@ -1,14 +1,14 @@
 import path from 'path';
-import { describe, expect } from 'manten';
+import { describe, test, expect, onTestFinish } from 'manten';
 import { createFixture } from 'fs-fixture';
 import { execa } from 'execa';
 
 const ciBinaryPath = path.resolve('dist/cli.js');
 const ci = (cwd: string) => execa(ciBinaryPath, [], { cwd });
 
-describe('ci', ({ describe, runTestSuite }) => {
-	describe('lock file', ({ test, describe }) => {
-		test('npm', async ({ onTestFinish }) => {
+describe('ci', () => {
+	describe('lock file', () => {
+		test('npm', async () => {
 			const fixture = await createFixture('tests/fixtures/npm');
 			onTestFinish(async () => await fixture.rm());
 
@@ -16,7 +16,7 @@ describe('ci', ({ describe, runTestSuite }) => {
 			expect(stdout).toMatch('added 1 package, and audited 2 packages');
 		});
 
-		test('yarn', async ({ onTestFinish }) => {
+		test('yarn', async () => {
 			const fixture = await createFixture('tests/fixtures/yarn');
 			onTestFinish(async () => await fixture.rm());
 
@@ -24,8 +24,8 @@ describe('ci', ({ describe, runTestSuite }) => {
 			expect(stdout).toMatch('YN0000: Done in');
 		});
 
-		describe('pnpm', ({ test }) => {
-			test('detect veresion', async ({ onTestFinish }) => {
+		describe('pnpm', () => {
+			test('detect veresion', async () => {
 				const fixture = await createFixture('tests/fixtures/pnpm');
 				onTestFinish(async () => await fixture.rm());
 
@@ -35,7 +35,7 @@ describe('ci', ({ describe, runTestSuite }) => {
 				expect(stdout).toMatch('Lockfile is up');
 			});
 
-			test('packageManager', async ({ onTestFinish }) => {
+			test('packageManager', async () => {
 				const fixture = await createFixture('tests/fixtures/pnpm-package-manager');
 				onTestFinish(async () => await fixture.rm());
 
@@ -47,5 +47,5 @@ describe('ci', ({ describe, runTestSuite }) => {
 		});
 	});
 
-	runTestSuite(import('./get-pnpm-version.spec.js'));
+	import('./get-pnpm-version.spec.ts');
 });

@@ -35,7 +35,7 @@
 		"execa": "^7.2.0",
 		"firstline": "^2.0.2",
 		"fs-fixture": "^1.2.0",
-		"manten": "^1.0.0",
+		"manten": "^2.0.0",
 		"pkgroll": "^1.11.0",
 		"tsx": "^3.12.7",
 		"typescript": "^5.1.6"
