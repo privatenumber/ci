@@ -24,15 +24,15 @@ describe('resolvePackageManager', () => {
 		});
 	});
 
-	test('pnpm when pnpm-lock.yaml exists, with packageManager', () => {
+	test('pnpm runs directly when packageManager is set', () => {
 		const result = resolvePackageManager({
 			lockFiles: ['pnpm-lock.yaml'],
 			nodeVersion: [18, 0, 0],
 			packageManager: 'pnpm@8.0.0',
 		});
 		expect(result).toEqual({
-			command: 'npx',
-			args: ['pnpm@8.0.0', 'i', '--frozen-lockfile'],
+			command: 'pnpm',
+			args: ['i', '--frozen-lockfile'],
 		});
 	});
 

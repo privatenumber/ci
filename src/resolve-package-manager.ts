@@ -30,12 +30,16 @@ export const resolvePackageManager = ({
 	}
 
 	if (lockFiles.includes('pnpm-lock.yaml')) {
-		const pnpmVersion = (
-			parsePnpmVersion(packageManager)
-			?? guessPnpmVersion(
-				nodeVersion,
-				lockFirstLine ? parseLockVersion(lockFirstLine) : undefined,
-			)
+		if (parsePnpmVersion(packageManager)) {
+			return {
+				command: 'pnpm',
+				args: ['i', '--frozen-lockfile'],
+			};
+		}
+
+		const pnpmVersion = guessPnpmVersion(
+			nodeVersion,
+			lockFirstLine ? parseLockVersion(lockFirstLine) : undefined,
 		);
 
 		return {
