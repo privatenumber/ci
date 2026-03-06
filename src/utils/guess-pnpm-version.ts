@@ -1,5 +1,5 @@
-import type { LockVersion, NodeVersion, PnpmVersion } from '../types.js';
-import { compareSemver } from './compare-semver.js';
+import type { LockVersion, NodeVersion, PnpmVersion } from '../types.ts';
+import { compareSemver } from './compare-semver.ts';
 
 const pnpmVersions: [string, PnpmVersion][] = [
 	['8', {

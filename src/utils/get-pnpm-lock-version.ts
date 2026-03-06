@@ -1,6 +1,6 @@
 import firstline from 'firstline';
-import type { LockVersion } from '../types.js';
-import { parseVersionString } from './parse-version-string.js';
+import type { LockVersion } from '../types.ts';
+import { parseVersionString } from './parse-version-string.ts';
 
 export const getPnpmLockVersion = async () => {
 	const lockFirstLine = await firstline('pnpm-lock.yaml');

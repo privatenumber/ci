@@ -18,8 +18,10 @@
 	"files": [
 		"dist"
 	],
+	"type": "module",
 	"bin": "dist/cli.js",
 	"scripts": {
+		"type-check": "tsc",
 		"lint": "eslint --cache .",
 		"build": "pkgroll --target node12.0.0 --minify",
 		"test": "tsx tests",
@@ -38,7 +40,7 @@
 		"manten": "^2.0.0",
 		"pkgroll": "^1.11.0",
 		"tsx": "^3.12.7",
-		"typescript": "^5.1.6"
+		"typescript": "^5.9.3"
 	},
 	"eslintConfig": {
 		"extends": "@pvtnbr",

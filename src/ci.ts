@@ -1,10 +1,10 @@
 import { existsSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { detectPnpmVersionFromPackageManager } from './utils/detect-pnpm-version-from-package-manager.js';
-import { guessPnpmVersion } from './utils/guess-pnpm-version.js';
-import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.js';
-import { parseVersionString } from './utils/parse-version-string.js';
-import type { NodeVersion } from './types.js';
+import { detectPnpmVersionFromPackageManager } from './utils/detect-pnpm-version-from-package-manager.ts';
+import { guessPnpmVersion } from './utils/guess-pnpm-version.ts';
+import { getPnpmLockVersion } from './utils/get-pnpm-lock-version.ts';
+import { parseVersionString } from './utils/parse-version-string.ts';
+import type { NodeVersion } from './types.ts';
 
 export const ci = async () => {
 	const options = {

@@ -1,4 +1,4 @@
-import { ci } from './ci.js';
+import { ci } from './ci.ts';
 
 (async () => {
 	try {

@@ -1,5 +1,5 @@
 import { test, expect } from 'manten';
-import { guessPnpmVersion } from '../src/utils/guess-pnpm-version.js';
+import { guessPnpmVersion } from '../src/utils/guess-pnpm-version.ts';
 
 test('getPnpmVersion', () => {
 	expect(guessPnpmVersion([18, 0, 0])).toBe('@8');
