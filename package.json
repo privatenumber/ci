@@ -25,8 +25,8 @@
 		"type-check": "tsc",
 		"lint": "lintroll --cache --node --ignore-pattern tests/fixtures .",
 		"build": "pkgroll --target node12.0.0 --minify",
-		"test": "tsx tests",
-		"dev": "tsx watch tests",
+		"test": "node tests/index.ts",
+		"dev": "node --watch tests/index.ts",
 		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"devDependencies": {
@@ -37,7 +37,6 @@
 		"manten": "^2.0.0",
 		"nano-spawn": "^2.0.0",
 		"pkgroll": "^2.27.0",
-		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
 	}
 }
