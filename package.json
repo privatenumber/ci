@@ -30,13 +30,13 @@
 		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"devDependencies": {
-		"@types/node": "^25.3.5",
-		"clean-pkg-json": "^1.2.1",
-		"fs-fixture": "^2.11.0",
+		"@types/node": "^25.5.0",
+		"clean-pkg-json": "^1.4.1",
+		"fs-fixture": "^2.13.0",
 		"lintroll": "^1.30.0",
 		"manten": "^2.0.0",
 		"nano-spawn": "^2.0.0",
 		"pkgroll": "^2.27.0",
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.2"
 	}
 }
