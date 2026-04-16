@@ -30,7 +30,7 @@
 		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"devDependencies": {
-		"@types/node": "^25.5.0",
+		"@types/node": "^25.6.0",
 		"clean-pkg-json": "^1.4.1",
 		"fs-fixture": "^2.13.0",
 		"lintroll": "^1.30.0",
